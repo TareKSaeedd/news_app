@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:news_app/model/news_response.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NewsItem extends StatelessWidget {
   News news;
@@ -10,6 +11,8 @@ class NewsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
+    DateTime paresedTime = DateTime.parse(news.publishedAt ?? '');
+    String formattedNewsTime = timeago.format(paresedTime);
 
     return Container(
       margin: EdgeInsets.symmetric(horizontal: width * 0.04, vertical: height * 0.01),
@@ -37,7 +40,7 @@ class NewsItem extends StatelessWidget {
               Expanded(
                 child: Text('By : ${news.author}', style: Theme.of(context).textTheme.labelSmall),
               ),
-              Text(news.publishedAt ?? '', style: Theme.of(context).textTheme.labelSmall),
+              Text(formattedNewsTime, style: Theme.of(context).textTheme.labelSmall),
             ],
           ),
         ],
