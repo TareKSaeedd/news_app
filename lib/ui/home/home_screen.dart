@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/ui/home/category_details/category_details.dart';
+import 'package:news_app/ui/home/drawer_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -7,6 +9,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Home', style: Theme.of(context).textTheme.headlineLarge)),
+      drawer: DrawerWidget(),
+      body: CategoryDetails(),
     );
   }
 }
