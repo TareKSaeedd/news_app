@@ -1,12 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/provider/language_provider.dart';
 import 'package:news_app/provider/theme_provider.dart';
 import 'package:news_app/ui/home/home_screen.dart';
 import 'package:news_app/utils/app_routes.dart';
 import 'package:news_app/utils/app_theme.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(create: (context) => ThemeProvider(), child: const MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => LanguageProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -15,6 +25,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var appThemeProvider = Provider.of<ThemeProvider>(context);
+    var appLanguageProvider = Provider.of<LanguageProvider>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.homeRouteName,
@@ -23,6 +34,9 @@ class MyApp extends StatelessWidget {
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: appThemeProvider.themeMode,
+      locale: Locale(appLanguageProvider.appLanguage),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

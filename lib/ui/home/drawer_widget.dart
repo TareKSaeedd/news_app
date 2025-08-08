@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/provider/language_provider.dart';
 import 'package:news_app/provider/theme_provider.dart';
 import 'package:news_app/utils/app_assets.dart';
 import 'package:news_app/utils/app_colors.dart';
 import 'package:news_app/utils/app_styles.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
@@ -13,13 +15,17 @@ class DrawerWidget extends StatelessWidget {
     var height = MediaQuery.of(context).size.height;
     var width = MediaQuery.of(context).size.width;
     var appThemeProvider = Provider.of<ThemeProvider>(context);
+    var appLanguageProvider = Provider.of<LanguageProvider>(context);
+
     return Drawer(
       child: Column(
         // padding: EdgeInsets.zero,
         children: [
           DrawerHeader(
             margin: EdgeInsets.zero,
-            child: Center(child: Text('News App', style: AppStyles.bold24Black)),
+            child: Center(
+              child: Text(AppLocalizations.of(context)!.news_app, style: AppStyles.bold24Black),
+            ),
           ),
           Expanded(
             child: Container(
@@ -33,7 +39,10 @@ class DrawerWidget extends StatelessWidget {
                       children: [
                         Image.asset(AppAssets.iconHome),
                         SizedBox(width: width * 0.02),
-                        Text('Go To Home', style: AppStyles.bold20White),
+                        Text(
+                          AppLocalizations.of(context)!.go_to_home,
+                          style: AppStyles.bold20White,
+                        ),
                       ],
                     ),
                   ),
@@ -44,15 +53,20 @@ class DrawerWidget extends StatelessWidget {
                     children: [
                       Image.asset(AppAssets.iconTheme),
                       SizedBox(width: width * 0.02),
-                      Text('Theme', style: AppStyles.bold20White),
+                      Text(AppLocalizations.of(context)!.theme, style: AppStyles.bold20White),
                     ],
                   ),
                   SizedBox(height: height * 0.01),
                   InkWell(
                     onTap: () {
-                      appThemeProvider.changeAppTheme();
+                      appThemeProvider.changeAppTheme(context);
                     },
-                    child: ThemeAndLangContainer(containerText: appThemeProvider.themeModeText),
+                    child: ThemeAndLangContainer(
+                      containerText:
+                          appThemeProvider.themeMode == ThemeMode.light
+                              ? AppLocalizations.of(context)!.light
+                              : AppLocalizations.of(context)!.dark,
+                    ),
                   ),
                   SizedBox(height: height * 0.028),
                   Divider(color: AppColors.whiteColor),
@@ -61,11 +75,19 @@ class DrawerWidget extends StatelessWidget {
                     children: [
                       Image.asset(AppAssets.iconLanguage),
                       SizedBox(width: width * 0.02),
-                      Text('Language', style: AppStyles.bold20White),
+                      Text(AppLocalizations.of(context)!.language, style: AppStyles.bold20White),
                     ],
                   ),
                   SizedBox(height: height * 0.01),
-                  ThemeAndLangContainer(containerText: 'Enlish'),
+                  InkWell(
+                    onTap: () => appLanguageProvider.changeAppLanguage(),
+                    child: ThemeAndLangContainer(
+                      containerText:
+                          appLanguageProvider.appLanguage == 'en'
+                              ? AppLocalizations.of(context)!.english
+                              : AppLocalizations.of(context)!.arabic,
+                    ),
+                  ),
                 ],
               ),
             ),
