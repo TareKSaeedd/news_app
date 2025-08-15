@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:news_app/provider/language_provider.dart';
 import 'package:news_app/provider/theme_provider.dart';
 import 'package:news_app/ui/home/home_screen.dart';
+import 'package:news_app/ui/home/search_screen/search_screen.dart';
 import 'package:news_app/utils/app_routes.dart';
 import 'package:news_app/utils/app_theme.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: AppRoutes.homeRouteName,
-      routes: {AppRoutes.homeRouteName: (context) => HomeScreen()},
+      routes: {
+        AppRoutes.homeRouteName: (context) => HomeScreen(),
+        AppRoutes.searchRouteName: (context) => SearchScreen(),
+      },
 
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
