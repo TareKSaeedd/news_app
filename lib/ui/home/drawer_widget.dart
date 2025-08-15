@@ -7,8 +7,11 @@ import 'package:news_app/utils/app_styles.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+typedef OnDrawerHomeClick = void Function();
+
 class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+  const DrawerWidget({super.key, required this.onDrawerHomeClick});
+  final OnDrawerHomeClick onDrawerHomeClick;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,9 @@ class DrawerWidget extends StatelessWidget {
               child: Column(
                 children: [
                   InkWell(
-                    onTap: () => Navigator.pop(context),
+                    onTap: () {
+                      onDrawerHomeClick();
+                    },
                     child: Row(
                       children: [
                         Image.asset(AppAssets.iconHome),

@@ -4,7 +4,7 @@ class AppAssets {
   static const iconLanguage = 'assets/images/icon_language.png';
 
   static const generalLightImage = 'assets/images/general_light_image.png';
-  static const businesLightImage = 'assets/images/bussines_light_image.png';
+  static const businessLightImage = 'assets/images/business_light_image.png';
   static const sportsLightImage = 'assets/images/sports_light_image.png';
   static const entertainmentLightImage = 'assets/images/entertainment_light_image.png';
   static const healthLightImage = 'assets/images/health_light_image.png';
