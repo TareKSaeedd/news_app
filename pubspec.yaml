@@ -46,6 +46,7 @@ dependencies:
   dropdown_button2: ^2.3.9
   webview_flutter: ^4.13.0
   infinite_scroll_pagination: ^5.1.0
+  flutter_bloc: ^9.1.1
 
 dev_dependencies:
   flutter_test:

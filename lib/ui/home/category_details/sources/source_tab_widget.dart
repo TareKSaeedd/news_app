@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/model/source_response.dart';
+import 'package:news_app/ui/home/category_details/cubit/source_cubit.dart';
 import 'package:news_app/ui/home/category_details/news/news_widget.dart';
 import 'package:news_app/ui/home/category_details/sources/source_name.dart';
 import 'package:news_app/utils/app_colors.dart';
@@ -14,37 +15,38 @@ class SourceTabWidget extends StatefulWidget {
 }
 
 class _SourceTabWidgetState extends State<SourceTabWidget> {
+  SourceCubit viewModel = SourceCubit();
   int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height;
-    var width = MediaQuery.of(context).size.width;
-    return DefaultTabController(
-      length: widget.sourcesList.length,
-      child: Column(
-        children: [
-          TabBar(
-            isScrollable: true,
-            indicatorColor: Theme.of(context).indicatorColor,
-            dividerColor: AppColors.transparentColor,
-            tabAlignment: TabAlignment.start,
-            onTap: (index) {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
-            tabs:
-                widget.sourcesList.map((source) {
-                  return SourceName(
-                    source: source,
-                    isSelected: selectedIndex == widget.sourcesList.indexOf(source),
-                  );
-                }).toList(),
+    return Column(
+      children: [
+        TabBar(
+          controller: TabController(
+            length: widget.sourcesList.length,
+            vsync: Scaffold.of(context),
+            initialIndex: selectedIndex,
           ),
-          Expanded(child: NewsWidget(source: widget.sourcesList[selectedIndex])),
-        ],
-      ),
+          isScrollable: true,
+          indicatorColor: Theme.of(context).indicatorColor,
+          dividerColor: AppColors.transparentColor,
+          tabAlignment: TabAlignment.start,
+          onTap: (index) {
+            setState(() {
+              selectedIndex = index;
+            });
+          },
+          tabs:
+              widget.sourcesList.map((source) {
+                return SourceName(
+                  source: source,
+                  isSelected: selectedIndex == widget.sourcesList.indexOf(source),
+                );
+              }).toList(),
+        ),
+        Expanded(child: NewsWidget(source: widget.sourcesList[selectedIndex])),
+      ],
     );
   }
 }
