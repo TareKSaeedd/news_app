@@ -1,14 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app/api/api_manager.dart';
+import 'package:news_app/data/repository/news/repository/news_repository.dart';
 import 'package:news_app/ui/home/category_details/cubit/news_state.dart';
 
 class NewsCubit extends Cubit<NewsState> {
-  NewsCubit() : super(NewsLoadingState());
+  NewsRepository newsRepository;
+  NewsCubit({required this.newsRepository}) : super(NewsLoadingState());
 
   void getNews(String sourceId, String pageNumbers) async {
     try {
       emit(NewsLoadingState());
-      var response = await ApiManager.getNewsBySourceId(sourceId, pageNumbers);
+      var response = await newsRepository.getNewsBySourceId(sourceId, pageNumbers);
       if (response.status == 'error') {
         emit(NewsErrorState(errorMessage: response.message!));
         return;

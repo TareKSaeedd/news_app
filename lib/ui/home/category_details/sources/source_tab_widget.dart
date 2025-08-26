@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/di/di.dart';
 import 'package:news_app/model/source_response.dart';
 import 'package:news_app/ui/home/category_details/cubit/source_cubit.dart';
 import 'package:news_app/ui/home/category_details/news/news_widget.dart';
@@ -15,7 +16,7 @@ class SourceTabWidget extends StatefulWidget {
 }
 
 class _SourceTabWidgetState extends State<SourceTabWidget> {
-  SourceCubit viewModel = SourceCubit();
+  SourceCubit viewModel = SourceCubit(sourcesRepository: injectSourcesRepository());
   int selectedIndex = 0;
 
   @override

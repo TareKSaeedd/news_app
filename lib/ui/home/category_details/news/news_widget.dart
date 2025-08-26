@@ -21,6 +21,7 @@ class _NewsWidgetState extends State<NewsWidget> {
 
   @override
   void initState() {
+    ApiManager apiManager = ApiManager();
     super.initState();
 
     _pagingController = PagingController<int, News>(
@@ -30,7 +31,7 @@ class _NewsWidgetState extends State<NewsWidget> {
       fetchPage: (pageKey) async {
         await Future.delayed(const Duration(seconds: 2));
         try {
-          final newsResponse = await ApiManager.getNewsBySourceId(
+          final newsResponse = await apiManager.getNewsBySourceId(
             widget.source.id ?? '',
             pageKey.toString(),
           );
